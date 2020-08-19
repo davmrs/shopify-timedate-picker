@@ -73,11 +73,11 @@
     $(function () {
       // Getting current Date and Time
       var currentDate = new Date();
-      // var currentHour = currentDate.getHours();
+      var currentHour = currentDate.getHours();
 
       // Comment next line on Prod Env (Just for testing!!!) 
       // Hour in 24 format (0-23)
-      var currentHour = 11;
+      // var currentHour = 11;
 
       var minDate = -0; // It enables today as a possible option to be selected
 
@@ -97,7 +97,7 @@
           ).getTime();
           var selected = new Date(dateText).getTime();
           var daySelected = new Date(dateText).getDay();
-          console.log(daySelected);
+          //console.log(daySelected);
 
           if (today > selected) {
             alert("fecha no válida");
@@ -106,7 +106,7 @@
             void 0;
             let minTime = "08:00 am";
             let maxTime = "7:00pm";
-            console.log(daySelected);
+            //console.log(daySelected);
 
             // Setting Sunday out of service hour: 5:00pm
             if (daySelected == 0) {
@@ -116,8 +116,8 @@
             let defaultTime = minTime.substring(0, 2);
 
             $(function () {
-              console.log("fecha diferente de hoy");
-              console.log(maxTime);
+              //console.log("fecha diferente de hoy");
+              //console.log(maxTime);
               $("#time").timepicker({
                 timeFormat: "h:mm p",
                 interval: 30,
@@ -144,9 +144,6 @@
             $("#time").data("TimePicker").widget.instance = null;
           } else {
             // When the selected day is today
-            alert(
-              "Se seleccionó entrega el día de hoy.\nPor temas logísticos, en entregas el mismo día tenemos las siguientes condiciones:\nEn compras de 0:00 hrs. a 10:00 hrs. - Horario de entrega de 15:00 hrs. a 19:00 hrs.\nEn compras de 10:01 hrs. a 13:00 hrs. - Horario de entrega de 17:00 hrs. a 19:00 hrs.\nEn compras después de las 13:00 hrs. no es posible la entrega el mismo día.\n\nEn caso de seleccionar un horario inválido se contactará al cliente para elegir una hora válida para la entrega"
-            );
             let minTime = "";
             let maxTime = "7:00pm";
 
@@ -162,10 +159,10 @@
             }
 
             let defaultTime = minTime.substring(0, 2);
-            console.log(minTime, defaultTime);
+            //console.log(minTime, defaultTime);
 
             $(function () {
-              console.log("fecha diferente de hoy");
+              //console.log("fecha diferente de hoy");
               $("#time").timepicker({
                 timeFormat: "h:mm p",
                 interval: 30,
@@ -208,7 +205,6 @@
   <p>
     <label for="time">Selecciona una hora de entrega:</label>
     <input id="time" type="text" name="attributes[time]" value="{{ cart.attributes.time }}" />
-    <span style="display:block" class="instructions">Domingos hasta las 17:00 hrs.</span>
   </p>
 </div>
 <div style="width:300px; clear:both;">
