@@ -66,11 +66,11 @@ $(document).ready(function () {
   $(function () {
     // Getting current Date and Time
     var currentDate = new Date();
-    var currentHour = currentDate.getHours();
+    // var currentHour = currentDate.getHours();
 
     // Comment next line on Prod Env (Just for testing!!!) 
     // Hour in 24 format (0-23)
-    // var currentHour = 11;
+    var currentHour = 18;
 
     var minDate = -0; // It enables today as a possible option to be selected
 
@@ -90,7 +90,9 @@ $(document).ready(function () {
         ).getTime();
         var selected = new Date(dateText).getTime();
         var daySelected = new Date(dateText).getDay();
-        console.log(daySelected);
+        console.log('Selected day ' + daySelected);
+        console.log('Selected ' + selected);
+        console.log('Today ' + today);
 
         if (today > selected) {
           alert("fecha no válida");
@@ -101,8 +103,25 @@ $(document).ready(function () {
           let maxTime = "7:00pm";
           console.log(daySelected);
 
-          // Setting Sunday out of service hour: 5:00pm
-          if (daySelected == 0) {
+          // Getting the difference in days
+          const diffTime = Math.abs(today - selected);
+          // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          // Comment next line on Prod Env (Just for testing!!!) 
+          const diffDays = 1;
+          console.log(diffDays + " days");
+
+          // After 18h the minTime available is 10h
+          if (currentHour >= 18 && diffDays == 1) {
+            minTime = "10:00 am";
+          }
+
+          // On purchases from Saturday to Sunday the minTime available is 15h
+          if (daySelected == 0 && diffDays == 1) {
+            minTime = "3:00pm";
+          }
+
+          // Setting Saturday and Sunday out of service hour: 5:00pm
+          if (daySelected == 0 || daySelected == 6) {
             maxTime = "5:00pm";
           }
 
@@ -149,8 +168,8 @@ $(document).ready(function () {
             minTime = "05:00 pm";
           }
 
-          // Setting Sunday out of service hour: 5:00pm
-          if (daySelected == 0) {
+          // Setting Saturday and Sunday out of service hour: 5:00pm
+          if (daySelected == 0 || daySelected == 6) {
             maxTime = "5:00pm";
           }
 
@@ -158,7 +177,7 @@ $(document).ready(function () {
           console.log(minTime, defaultTime);
 
           $(function () {
-            console.log("fecha diferente de hoy");
+            console.log("fecha hoy");
             $("#time").timepicker({
               timeFormat: "h:mm p",
               interval: 30,
